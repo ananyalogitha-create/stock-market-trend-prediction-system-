@@ -1,0 +1,31 @@
+1. Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+2. Load Dataset
+data = pd.read_csv("stock_data.csv")
+print(data.head())
+
+3. Data Visualization
+plt.plot(data['Close'])
+plt.title("Stock Closing Price")
+plt.xlabel("Days")
+plt.ylabel("Price")
+plt.show()
+
+4. Prepare Data
+data['Prediction'] = data['Close'].shift(-1)
+
+5. Train Model
+X = np.array(data[['Close']])[:-1]
+y = np.array(data['Prediction'])[:-1]
+
+model = LinearRegression()
+model.fit(X, y)
+
+6. Predict Future Price
+prediction = model.predict()
+print(prediction)
+
